@@ -5,9 +5,11 @@ import Card from '../components/Card';
 import Formulario from '../components/Formulario';
 import ListadoPrueba from './ListadoPrueba';
 
+const url = 'http://testapi.beatlech.com/public/api/personas/';
 
 class GridCard extends React.Component {
     state = {
+        id:null,
         nombre: null,
         apellido: null,
         anio_nacimiento: null,
@@ -18,7 +20,7 @@ class GridCard extends React.Component {
         });
     };
 
-    handleClick = async (e)=>{
+    handleClick = async (id)=>{
         const requestOptions = {
             method: 'POST',
             headers : {'Content-Type': 'appliation/json'},
@@ -29,7 +31,23 @@ class GridCard extends React.Component {
             }),
         };
         
-        fetch('http://testapi.beatlech.com/public/api/personas', requestOptions)
+        fetch(url, requestOptions)
+        .then((res)=> res.json())
+        .catch((error)=>console.error('Error:', error))
+        .then((response)=>console.log('success:', response));
+    };
+    handleUpdate = async (e)=>{
+        const requestOptions = {
+            method: 'PUT',
+            headers : {'Content-Type': 'appliation/json'},
+            body: JSON.stringify({
+                nombre: this.state.nombre,
+                apellido: this.state.apellido,
+                anio_nacimiento: this.state.anio_nacimiento,
+            }),
+        };
+        
+        fetch(url+this.state.id, requestOptions)
         .then((res)=> res.json())
         .catch((error)=>console.error('Error:', error))
         .then((response)=>console.log('success:', response));
@@ -42,7 +60,7 @@ class GridCard extends React.Component {
                         <ListadoPrueba/>
                     </div>
                     <div className='col-sm-6'>
-                        <Formulario OnChange={this.handleChange} onClick={this.handleClick}/>
+                        <Formulario OnChange={this.handleChange} onClick={this.handleClick} onClickUpdate={this.handleUpdate}/>
                     </div>
                 </div>
             </div> 

@@ -19,6 +19,11 @@ class Formulario extends React.Component {
             <div className = 'container'>
             <form>
                 <div className="form-group">
+                    <label for="start">Id</label>
+                    {/* <input onChange={this.props.OnChange} type="date" className="form-control" id="anio_nacimiento" name="anio_nacimiento"/> */}
+                    <input onChange={this.props.OnChange} type="number" className="form-control" id="id" name="id" min={1} max={2000} step={1} defaultValue={0} />
+                </div>
+                <div className="form-group">
                     <label for="nombre">Nombre</label>
                     <input onChange={this.props.OnChange} type="text" className="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre"/>
                 </div>
@@ -32,6 +37,7 @@ class Formulario extends React.Component {
                         <input onChange={this.props.OnChange} type="number" className="form-control" id="anio_nacimiento" name="anio_nacimiento" min={1900} max={2099} step={1} defaultValue={2016}/>
                     </div>
                 <button onClick={this.props.onClick} type='button'className="btn btn-primary btn-lg btn-block">Enviar</button>
+                <button onClick={this.props.onClickUpdate} type='button'className="btn btn-primary btn-lg btn-block">Actualizar</button>
             </form>
             </div>
         );
